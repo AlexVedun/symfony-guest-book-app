@@ -29,6 +29,12 @@ class Wish
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageFile = null;
 
+    #[ORM\Column]
+    private ?bool $isModerated = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +96,30 @@ class Wish
     public function setImageFile(?string $imageFile): static
     {
         $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    public function isIsModerated(): ?bool
+    {
+        return $this->isModerated;
+    }
+
+    public function setIsModerated(bool $isModerated): static
+    {
+        $this->isModerated = $isModerated;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
