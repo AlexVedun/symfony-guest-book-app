@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GuestBookController extends AbstractController
 {
-    #[Route('/', name: 'app_guest_book')]
+    #[Route('/', name: 'guest_book_index')]
     public function index(): Response
     {
         return $this->render('guest_book/index.html.twig', [
