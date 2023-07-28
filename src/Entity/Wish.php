@@ -35,7 +35,7 @@ class Wish
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'wishes')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'wishes')]
     private ?User $userId = null;
 
     public function getId(): ?int

@@ -1,5 +1,8 @@
 doctrine:
     dbal:
+        types:
+            datetime_immutable: \Carbon\Doctrine\DateTimeImmutableType
+            datetime: \Carbon\Doctrine\DateTimeType
         url: '%env(resolve:DATABASE_URL)%'
 
         # IMPORTANT: You MUST configure your server version,
