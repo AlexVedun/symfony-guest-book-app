@@ -23,4 +23,22 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <ul class="pagination">
+        <li class="page-item {% if pagination.current == pagination.previous %} disabled {% endif %}">
+            <a class="page-link" href="{{ path('guest_book_index', {page: pagination.previous}) }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% for i in 1..pagination.max %}
+            <li class="page-item {% if i == pagination.current %} active {% endif %}">
+                <a class="page-link" href="{{ path('guest_book_index', {page: i}) }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+        <li class="page-item {% if pagination.current == pagination.next %} disabled {% endif %}">
+            <a class="page-link" href="{{ path('guest_book_index', {page: pagination.next}) }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
 {% endblock %}

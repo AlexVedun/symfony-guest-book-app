@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Wish;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,9 +17,23 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class WishRepository extends ServiceEntityRepository
 {
+    public const ITEMS_PER_PAGE = 25;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Wish::class);
+    }
+
+    public function getWishPaginator(int $page): Paginator
+    {
+        $query = $this->createQueryBuilder('w')
+            ->where('w.isModerated = TRUE')
+            ->orderBy('w.createdAt', 'desc')
+            ->setMaxResults(self::ITEMS_PER_PAGE)
+            ->setFirstResult(($page - 1) * self::ITEMS_PER_PAGE)
+            ->getQuery();
+
+        return new Paginator($query);
     }
 
 //    /**
