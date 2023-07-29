@@ -37,7 +37,7 @@ class WishFixtures extends Fixture
                 $user = new User();
                 $user->setUserName($wish->getUserName());
                 $user->setEmail($wish->getEmail());
-                $wish->setUserId($user);
+                $wish->setUser($user);
 
                 $plainPassword = 'password';
                 $hashedPassword = $this->hasher->hashPassword($user, $plainPassword);
