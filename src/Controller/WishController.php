@@ -6,11 +6,13 @@ use App\Entity\User;
 use App\Entity\Wish;
 use App\Form\WishType;
 use App\Repository\WishRepository;
+use App\Service\FileUploaderService;
 use App\Service\PaginationService;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +21,8 @@ class WishController extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private Security $security
+        private Security $security,
+        private FileUploaderService $uploaderService
     ){}
 
     #[Route('/', name: 'wish_index')]
@@ -59,6 +62,15 @@ class WishController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            /**
+             * @var UploadedFile $imageFile
+             */
+            if ($imageFile = $form->get('imageFile')->getData()) {
+                $targetDirectory = $this->getParameter('image_directory');
+                $imageFileName = $this->uploaderService->upload($imageFile, $targetDirectory);
+                $wish->setImageFile($imageFileName);
+            }
+
             $this->entityManager->persist($wish);
             $this->entityManager->flush();
 

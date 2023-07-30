@@ -7,11 +7,13 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class WishType extends AbstractType
 {
@@ -57,9 +59,25 @@ class WishType extends AbstractType
                     'allowedContent' => 'a[!href]; code; i; strike; strong',
                 ],
             ])
-            ->add('capcha', CaptchaType::class, [
+            ->add('imageFile', FileType::class, [
                 'attr' => [
                     'class' => 'form-control'
+                ],
+                'row_attr' => [
+                    'class' => 'mb-3',
+                ],
+                'label' => 'Add image to wish',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '1024k',
+                    ]),
+                ],
+            ])
+            ->add('capcha', CaptchaType::class, [
+                'attr' => [
+                    'class' => 'form-control mt-2'
                 ],
                 'row_attr' => [
                     'class' => 'mb-3',
@@ -71,7 +89,6 @@ class WishType extends AbstractType
                     'class' => 'btn btn-primary',
                 ],
             ])
-            //->add('imageFile')
         ;
     }
 
