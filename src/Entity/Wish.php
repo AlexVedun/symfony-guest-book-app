@@ -93,7 +93,7 @@ class Wish
 
     public function setContent(string $content): static
     {
-        $this->content = $content;
+        $this->content = strip_tags($content, ['<p>', '<a>', '<code>', '<i>', '<strike>', '<strong>']);
 
         return $this;
     }
