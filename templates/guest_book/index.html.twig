@@ -3,6 +3,9 @@
 {% block title %}Guest Book Messages{% endblock %}
 
 {% block body %}
+    <div class="d-flex justify-content-end mb-4 mt-4">
+        <a class="btn btn-primary" href="{{ path('wish_create') }}">Create wish</a>
+    </div>
     <table class="table">
         <thead>
         <tr>
@@ -18,7 +21,7 @@
                     <td>{{ wish.userName }}</td>
                     <td>{{ wish.email }}</td>
                     <td class="text-nowrap">{{ wish.createdAt.format('Y-m-d') }}</td>
-                    <td>{{ wish.content }}</td>
+                    <td>{{ wish.content|raw }}</td>
                 </tr>
             {% endfor %}
         </tbody>
