@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Wish;
 use App\Form\WishType;
+use App\Repository\WishRepository;
+use App\Service\PaginationService;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,11 +22,21 @@ class WishController extends AbstractController
         private Security $security
     ){}
 
-    #[Route('/wish', name: 'app_wish')]
-    public function index(): Response
-    {
+    #[Route('/', name: 'wish_index')]
+    public function index(
+        Request $request,
+        WishRepository $wishRepository,
+        PaginationService $paginationService
+    ): Response {
+        $page = $request->query->getInt('page', 1);
+
+        $wishes = $wishRepository->getWishPaginator($page);
+
+        $pagination = $paginationService->getPaginationData($wishes, $page, WishRepository::ITEMS_PER_PAGE);
+
         return $this->render('wish/index.html.twig', [
-            'controller_name' => 'WishController',
+            'wishes' => $wishes,
+            'pagination' => $pagination,
         ]);
     }
 
@@ -50,7 +62,7 @@ class WishController extends AbstractController
             $this->entityManager->persist($wish);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('guest_book_index');
+            return $this->redirectToRoute('wish_index');
         }
 
         return $this->render('wish/create.html.twig', [

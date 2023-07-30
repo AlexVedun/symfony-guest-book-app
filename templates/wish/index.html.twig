@@ -1,7 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello WishController!{% endblock %}
+{% block title %}Guest Book Messages{% endblock %}
 
 {% block body %}
+    <div class="d-flex justify-content-end mb-4 mt-4">
+        <a class="btn btn-primary" href="{{ path('wish_create') }}">Create wish</a>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Date</th>
+            <th scope="col">Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for wish in wishes %}
+            <tr>
+                <td>{{ wish.userName }}</td>
+                <td>{{ wish.email }}</td>
+                <td class="text-nowrap">{{ wish.createdAt.format('Y-m-d') }}</td>
+                <td>{{ wish.content|raw }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
+    <ul class="pagination">
+        <li class="page-item {% if pagination.current == pagination.previous %} disabled {% endif %}">
+            <a class="page-link" href="{{ path('wish_index', {page: pagination.previous}) }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% for i in 1..pagination.max %}
+            <li class="page-item {% if i == pagination.current %} active {% endif %}">
+                <a class="page-link" href="{{ path('wish_index', {page: i}) }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+        <li class="page-item {% if pagination.current == pagination.next %} disabled {% endif %}">
+            <a class="page-link" href="{{ path('wish_index', {page: pagination.next}) }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
 {% endblock %}
