@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Wish;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Andx;
+use Doctrine\ORM\Query\Expr\Orx;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -24,10 +26,27 @@ class WishRepository extends ServiceEntityRepository
         parent::__construct($registry, Wish::class);
     }
 
-    public function getWishPaginator(int $page): Paginator
+    public function getWishPaginator(int $page, int $userId = null): Paginator
     {
-        $query = $this->createQueryBuilder('w')
-            ->where('w.isModerated = TRUE')
+        $andX = new Andx();
+        $orX = new Orx();
+
+        $queryBuilder = $this->createQueryBuilder('w');
+
+        $andX->add($queryBuilder->expr()->eq('w.isModerated', 'TRUE'));
+
+        if ($userId) {
+            $orX->add($queryBuilder->expr()->andX(
+                $queryBuilder->expr()->eq('w.isModerated', 'FALSE'),
+                $queryBuilder->expr()->eq('w.user', ':userId')
+            ));
+            $queryBuilder->setParameter('userId', $userId);
+        }
+
+        $orX->add($andX);
+
+        $query = $queryBuilder
+            ->andWhere($orX)
             ->orderBy('w.createdAt', 'desc')
             ->setMaxResults(self::ITEMS_PER_PAGE)
             ->setFirstResult(($page - 1) * self::ITEMS_PER_PAGE)

@@ -13,6 +13,9 @@
             <th scope="col">Email</th>
             <th scope="col">Date</th>
             <th scope="col">Message</th>
+            {% if app.user %}
+                <th scope="col">Actions</th>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -22,6 +25,25 @@
                 <td>{{ wish.email }}</td>
                 <td class="text-nowrap">{{ wish.createdAt.format('Y-m-d') }}</td>
                 <td>{{ wish.content|raw }}</td>
+                {% if app.user %}
+                    <td>
+                        <span class="d-flex flex-row">
+                            {% if is_granted('edit', wish) %}
+                                <a class="btn btn-primary me-1 btn-sm"
+                                   href="{{ path('wish_update', {id: wish.id }) }}"
+                                >
+                                    <i class="bi-pencil"></i>
+                                </a>
+                            {% endif %}
+                            {% if is_granted('delete', wish) %}
+                                <a href="{{ path('wish_delete', {id: wish.id }) }}"
+                                   class="btn btn-danger btn-sm">
+                                    <i class="bi-trash"></i>
+                                </a>
+                            {% endif %}
+                        </span>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
