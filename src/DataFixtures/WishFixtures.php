@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use App\Entity\Wish;
-use Carbon\CarbonImmutable;
+use Carbon\Carbon;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -13,8 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class WishFixtures extends Fixture
 {
     public function __construct(private UserPasswordHasherInterface $hasher)
-    {
-    }
+    {}
 
     public function load(ObjectManager $manager): void
     {
@@ -27,7 +26,7 @@ class WishFixtures extends Fixture
             $wish->setEmail($faker->email);
             $wish->setContent($faker->realTextBetween(100, 300));
             $wish->setIsModerated($faker->boolean);
-            $wish->setCreatedAt(CarbonImmutable::now());
+            $wish->setCreatedAt(Carbon::now());
 
             if ($faker->boolean) {
                 $wish->setHomePage($faker->url);
