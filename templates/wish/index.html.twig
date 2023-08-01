@@ -4,17 +4,17 @@
 
 {% block body %}
     <div class="d-flex justify-content-end mb-4 mt-4">
-        <a class="btn btn-primary" href="{{ path('wish_create') }}">Create wish</a>
+        <a class="btn btn-primary" href="{{ path('wish_create') }}">{{ 'wish.create'|trans }}</a>
     </div>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Username</th>
-            <th scope="col">Email</th>
-            <th scope="col">Date</th>
-            <th scope="col">Message</th>
+            <th scope="col">{{ 'username'|trans }}</th>
+            <th scope="col">{{ 'email'|trans }}</th>
+            <th scope="col">{{ 'date'|trans }}</th>
+            <th scope="col">{{ 'message'|trans }}</th>
             {% if app.user %}
-                <th scope="col">Actions</th>
+                <th scope="col">{{ 'actions'|trans }}</th>
             {% endif %}
         </tr>
         </thead>

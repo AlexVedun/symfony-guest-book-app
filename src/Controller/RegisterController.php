@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegisterController extends AbstractController
 {
-    #[Route('/register', name: 'register')]
+    #[Route('/{_locale<%app.supported_locales%>}/register', name: 'register')]
     public function index(
         Request $request,
         UserPasswordHasherInterface $hasher,

@@ -9,7 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login', name: 'login')]
+    #[Route('/{_locale<%app.supported_locales%>}/login', name: 'login')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -21,7 +21,7 @@ class LoginController extends AbstractController
         ]);
     }
 
-    #[Route('/logout', name: 'logout', methods: ['POST'])]
+    #[Route('/{_locale<%app.supported_locales%>}/logout', name: 'logout', methods: ['POST'])]
     public function logout(): never
     {
         //

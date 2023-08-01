@@ -5,18 +5,18 @@
 {% block body %}
     <div class="card position-absolute top-50 start-50 translate-middle w-25">
         <div class="card-body">
-            <h5 class="card-title">Login</h5>
+            <h5 class="card-title">{{ 'login'|trans }}</h5>
             <form action="{{ path('login') }}" method="post">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <div class="mb-3">
-                    <label class="form-label" for="username">Email:</label>
+                    <label class="form-label" for="username">{{ 'email'|trans }}:</label>
                     <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="password">Password:</label>
+                    <label class="form-label" for="password">{{ 'password'|trans }}:</label>
                     <input class="form-control" type="password" id="password" name="_password">
                 </div>
-                <button class="btn btn-primary" type="submit">Login</button>
+                <button class="btn btn-primary" type="submit">{{ 'login'|trans }}</button>
             </form>
         </div>
     </div>

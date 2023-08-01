@@ -14,14 +14,18 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class WishType extends AbstractType
 {
+    public function __construct(private TranslatorInterface $translator)
+    {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('userName', TextType::class, [
-                'label' => 'User name',
+                'label' => $this->translator->trans('username'),
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -36,9 +40,10 @@ class WishType extends AbstractType
                 'row_attr' => [
                     'class' => 'mb-3',
                 ],
+                'label' => $this->translator->trans('email'),
             ])
             ->add('homePage', UrlType::class, [
-                'label' => 'Home page',
+                'label' => $this->translator->trans('homepage'),
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -48,7 +53,7 @@ class WishType extends AbstractType
                 'required' => false,
             ])
             ->add('content', CKEditorType::class, [
-                'label' => 'Message',
+                'label' => $this->translator->trans('message'),
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -66,7 +71,7 @@ class WishType extends AbstractType
                 'row_attr' => [
                     'class' => 'mb-3',
                 ],
-                'label' => 'Add image to wish',
+                'label' => $this->translator->trans('wish.image.add'),
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -84,7 +89,7 @@ class WishType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Submit',
+                'label' => $this->translator->trans('submit'),
                 'attr' => [
                     'class' => 'btn btn-primary',
                 ],

@@ -27,7 +27,13 @@ class WishController extends AbstractController
         private FileUploaderService $uploaderService
     ){}
 
-    #[Route('/', name: 'wish_index')]
+    #[Route('/')]
+    public function indexNoLocale(): RedirectResponse
+    {
+        return $this->redirectToRoute('wish_index', ['_locale' => 'en']);
+    }
+
+    #[Route('/{_locale<%app.supported_locales%>}/', name: 'wish_index')]
     public function index(
         Request $request,
         WishRepository $wishRepository,
@@ -49,7 +55,7 @@ class WishController extends AbstractController
         ]);
     }
 
-    #[Route('/wish/create', name: 'wish_create')]
+    #[Route('/{_locale<%app.supported_locales%>}/wish/create', name: 'wish_create')]
     public function create(Request $request): Response
     {
         $wish = new Wish();
@@ -67,14 +73,14 @@ class WishController extends AbstractController
         return $this->processForm($request, $wish);
     }
 
-    #[Route('/wish/update/{id}', name: 'wish_update')]
+    #[Route('/{_locale<%app.supported_locales%>}/wish/update/{id}', name: 'wish_update')]
     #[IsGranted('delete', 'wish')]
     public function update(Request $request, Wish $wish): Response
     {
         return $this->processForm($request, $wish);
     }
 
-    #[Route('/wish/delete/{id}', name: 'wish_delete')]
+    #[Route('/{_locale<%app.supported_locales%>}/wish/delete/{id}', name: 'wish_delete')]
     #[IsGranted('delete', 'wish')]
     public function delete(Wish $wish): RedirectResponse
     {
