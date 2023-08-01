@@ -1,30 +1,37 @@
 username: 'Імʼя користувача'
-email: 'Email'
+email: Email
 homepage: 'Домашня сторінка'
-message: 'Повідомлення'
+message: Повідомлення
 wish.image.add: 'Додати зображення'
-submit: 'Відправити'
-password: 'Пароль'
-register: 'Реєстрація'
-Wish: 'Побажання'
+submit: Відправити
+password: Пароль
+register: Реєстрація
+Wish: Побажання
 Default: 'За замовченням'
-Id: 'Id'
-'Created At': 'Створено'
+Id: Id
+'Created At': Створено
 'User Name': 'Імʼя користувача'
-Email: 'Email'
+Email: Email
 'Home Page': 'Домашня сторінка'
-Content: 'Вміст'
-'Is Moderated': 'Перевірено'
+Content: Вміст
+'Is Moderated': Перевірено
 'Image File': 'Файл зображення'
-User: 'Користувач'
+User: Користувач
 'Wish List': 'Список побажань'
 'Wish Create': 'Створити побажання'
-Roles: 'Ролі'
+Roles: Ролі
 'User List': 'Список користувачів'
 'User Create': 'Створити користувача'
 guestbook: 'Книга побажань'
-logout: 'Вихід'
-login: 'Вхід'
+logout: Вихід
+login: Вхід
 wish.create: 'Створити побажання'
-date: 'Дата'
-actions: 'Дії'
+date: Дата
+actions: Дії
+sort_by: Сортувати за
+sort_by.username: имʼям користувача
+sort_by.email: email
+sort_by.creation_date: датою створення
+order_by: Напрям
+order_by.asc: за зростанням
+order_by.desc: за зменьшенням

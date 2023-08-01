@@ -8,6 +8,7 @@ use App\Form\WishType;
 use App\Repository\WishRepository;
 use App\Service\FileUploaderService;
 use App\Service\PaginationService;
+use App\Service\WishService;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,21 +38,32 @@ class WishController extends AbstractController
     public function index(
         Request $request,
         WishRepository $wishRepository,
-        PaginationService $paginationService
+        PaginationService $paginationService,
+        WishService $wishService
     ): Response {
         $page = $request->query->getInt('page', 1);
+        $params['sort_by'] = $request->query->get('sort_by');
+        $params['order_by'] = $request->query->get('order_by');
         /**
          * @var User $user
          */
         $user = $this->security->getUser();
 
-        $wishes = $wishRepository->getWishPaginator($page, $user?->getId());
+        $wishes = $wishRepository->getWishPaginator($page, $user?->getId(), $params['sort_by'], $params['order_by']);
 
-        $pagination = $paginationService->getPaginationData($wishes, $page, WishRepository::ITEMS_PER_PAGE);
+        $pagination = $paginationService->getPaginationData(
+            $wishes,
+            $page,
+            WishRepository::ITEMS_PER_PAGE,
+            'wish_index',
+            $params
+        );
 
         return $this->render('wish/index.html.twig', [
             'wishes' => $wishes,
             'pagination' => $pagination,
+            'sortByLinks' => $wishService->getSortByLinks('wish_index', $params),
+            'orderByLinks' => $wishService->getOrderByLinks('wish_index', $params),
         ]);
     }
 

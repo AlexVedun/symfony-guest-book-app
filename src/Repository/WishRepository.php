@@ -26,8 +26,18 @@ class WishRepository extends ServiceEntityRepository
         parent::__construct($registry, Wish::class);
     }
 
-    public function getWishPaginator(int $page, int $userId = null): Paginator
+    public function getWishPaginator(int $page, int $userId = null, string $sortBy = null, string $orderBy = null): Paginator
     {
+        $orderByParam = match ($orderBy) {
+            'asc' => 'asc',
+            default => 'desc',
+        };
+        $sortByParam = match ($sortBy) {
+            'username' => 'w.userName',
+            'email' => 'w.email',
+            default => 'w.createdAt',
+        };
+
         $andX = new Andx();
         $orX = new Orx();
 
@@ -47,7 +57,7 @@ class WishRepository extends ServiceEntityRepository
 
         $query = $queryBuilder
             ->andWhere($orX)
-            ->orderBy('w.createdAt', 'desc')
+            ->orderBy($sortByParam, $orderByParam)
             ->setMaxResults(self::ITEMS_PER_PAGE)
             ->setFirstResult(($page - 1) * self::ITEMS_PER_PAGE)
             ->getQuery();

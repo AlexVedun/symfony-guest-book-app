@@ -1,30 +1,37 @@
 username: 'User name'
-email: 'Email'
+email: Email
 homepage: 'Home page'
-message: 'Message'
+message: Message
 wish.image.add: 'Add image to wish'
-submit: 'Submit'
-password: 'Password'
-register: 'Register'
-Wish: 'Wish'
-Default: 'Default'
-Id: 'Id'
+submit: Submit
+password: Password
+register: Register
+Wish: Wish
+Default: Default
+Id: Id
 'Created At': 'Created At'
 'User Name': 'User Name'
-Email: 'Email'
+Email: Email
 'Home Page': 'Home Page'
-Content: 'Content'
+Content: Content
 'Is Moderated': 'Is Moderated'
 'Image File': 'Image File'
-User: 'User'
+User: User
 'Wish List': 'Wish List'
 'Wish Create': 'Wish Create'
-Roles: 'Roles'
+Roles: Roles
 'User List': 'User List'
 'User Create': 'User Create'
 guestbook: 'Guest book'
-logout: 'Logout'
-login: 'Login'
+logout: Logout
+login: Login
 wish.create: 'Create wish'
-date: 'Date'
-actions: 'Actions'
+date: Date
+actions: Actions
+sort_by: Sort by
+sort_by.username: user name
+sort_by.email: email
+sort_by.creation_date: creation date
+order_by: Order by
+order_by.asc: ascending
+order_by.desc: descending

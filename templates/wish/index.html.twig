@@ -3,9 +3,37 @@
 {% block title %}Guest Book Messages{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-end mb-4 mt-4">
-        <a class="btn btn-primary" href="{{ path('wish_create') }}">{{ 'wish.create'|trans }}</a>
+    <div class="row mb-4 mt-4">
+        <div class="col-12 col-lg-6">
+            <div class="d-flex justify-content-start">
+                <div class="btn-group me-3">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ 'sort_by'|trans }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ sortByLinks.userNameLink }}">{{ 'sort_by.username'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ sortByLinks.emailLink }}">{{ 'sort_by.email'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ sortByLinks.createdAtLink }}">{{ 'sort_by.creation_date'|trans }}</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ 'order_by'|trans }}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ orderByLinks.ascLink }}">{{ 'order_by.asc'|trans }}</a></li>
+                        <li><a class="dropdown-item" href="{{ orderByLinks.descLink }}">{{ 'order_by.desc'|trans }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-primary" href="{{ path('wish_create') }}">{{ 'wish.create'|trans }}</a>
+            </div>
+        </div>
     </div>
+
     <table class="table">
         <thead>
         <tr>
@@ -51,17 +79,17 @@
 
     <ul class="pagination">
         <li class="page-item {% if pagination.current == pagination.previous %} disabled {% endif %}">
-            <a class="page-link" href="{{ path('wish_index', {page: pagination.previous}) }}" aria-label="Previous">
+            <a class="page-link" href="{{ pagination.previousLink }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         {% for i in 1..pagination.max %}
             <li class="page-item {% if i == pagination.current %} active {% endif %}">
-                <a class="page-link" href="{{ path('wish_index', {page: i}) }}">{{ i }}</a>
+                <a class="page-link" href="{{ pagination.pageLinks[i] }}">{{ i }}</a>
             </li>
         {% endfor %}
         <li class="page-item {% if pagination.current == pagination.next %} disabled {% endif %}">
-            <a class="page-link" href="{{ path('wish_index', {page: pagination.next}) }}" aria-label="Next">
+            <a class="page-link" href="{{ pagination.nextLink }}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

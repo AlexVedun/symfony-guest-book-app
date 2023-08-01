@@ -8,7 +8,9 @@ class PaginationData
         public int $previous,
         public int $current,
         public int $next,
-        public int $max
-    )
-    {}
+        public int $max,
+        public ?string $previousLink = null,
+        public ?string $nextLink = null,
+        public ?array $pageLinks = null,
+    ) {}
 }
