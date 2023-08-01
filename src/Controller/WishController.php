@@ -8,7 +8,7 @@ use App\Form\WishType;
 use App\Repository\WishRepository;
 use App\Service\FileUploaderService;
 use App\Service\PaginationService;
-use Carbon\CarbonImmutable;
+use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -54,7 +54,7 @@ class WishController extends AbstractController
     {
         $wish = new Wish();
         $wish->setIsModerated(false);
-        $wish->setCreatedAt(CarbonImmutable::now());
+        $wish->setCreatedAt(Carbon::now());
         /**
          * @var User $user
          */
