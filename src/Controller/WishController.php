@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Wish;
 use App\Form\WishType;
 use App\Repository\WishRepository;
+use App\Service\BrowserService;
 use App\Service\FileUploaderService;
 use App\Service\PaginationService;
 use App\Service\WishService;
@@ -68,11 +69,13 @@ class WishController extends AbstractController
     }
 
     #[Route('/{_locale<%app.supported_locales%>}/wish/create', name: 'wish_create')]
-    public function create(Request $request): Response
+    public function create(Request $request, BrowserService $browserService): Response
     {
         $wish = new Wish();
         $wish->setIsModerated(false);
         $wish->setCreatedAt(Carbon::now());
+        $wish->setUserIP($request->getClientIp());
+        $wish->setUserBrowser($browserService->getBrowserInfo($request));
         /**
          * @var User $user
          */

@@ -45,6 +45,12 @@ class Wish
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'wishes')]
     private ?User $user = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $userIP = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $userBrowser = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -142,6 +148,30 @@ class Wish
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUserIP(): ?string
+    {
+        return $this->userIP;
+    }
+
+    public function setUserIP(?string $userIP): static
+    {
+        $this->userIP = $userIP;
+
+        return $this;
+    }
+
+    public function getUserBrowser(): ?string
+    {
+        return $this->userBrowser;
+    }
+
+    public function setUserBrowser(?string $userBrowser): static
+    {
+        $this->userBrowser = $userBrowser;
 
         return $this;
     }

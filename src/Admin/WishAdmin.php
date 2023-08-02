@@ -66,5 +66,7 @@ class WishAdmin extends AbstractAdmin
         $show->add('content');
         $show->add('isModerated');
         $show->add('imageFile');
+        $show->add('userIP');
+        $show->add('userBrowser');
     }
 }

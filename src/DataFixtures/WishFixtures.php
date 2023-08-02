@@ -27,6 +27,8 @@ class WishFixtures extends Fixture
             $wish->setContent($faker->realTextBetween(100, 300));
             $wish->setIsModerated($faker->boolean);
             $wish->setCreatedAt(Carbon::now());
+            $wish->setUserIP($faker->ipv4);
+            $wish->setUserBrowser($faker->randomElement(['Chrome 115.0', 'Safari 16.5', 'Firefox 115.0']));
 
             if ($faker->boolean) {
                 $wish->setHomePage($faker->url);
