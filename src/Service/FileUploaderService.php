@@ -12,7 +12,7 @@ class FileUploaderService
     public function __construct(
         private SluggerInterface $slugger,
         private LoggerInterface $logger
-    ){}
+    ) {}
 
     public function upload(UploadedFile $file, string $targetDirectory): string
     {
